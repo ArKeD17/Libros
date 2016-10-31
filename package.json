@@ -1,0 +1,23 @@
+{
+  "name": "libros",
+  "version": "1.0.0",
+  "description": "libros",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --debug ./index.js",
+    "sass": "sass --watch public/css/main.scss:public/css/main.min.css --style compressed --sourcemap=none"
+  },
+  "author": "Carlos E. Arreola",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-session": "^2.0.0-alpha.1",
+    "easyimage": "^2.1.0",
+    "express": "^4.14.0",
+    "express-formidable": "^1.0.0",
+    "jade": "^1.11.0",
+    "mdl-selectfield": "^1.0.2",
+    "method-override": "^2.3.6",
+    "mongoose": "^4.6.5",
+    "nodemon": "^1.11.0"
+  }
+}

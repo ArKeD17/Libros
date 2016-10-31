@@ -1,0 +1,50 @@
+@charset "UTF-8";
+
+// Aligns
+.left{ text-align: left !important; }
+.center{ text-align: center !important; }
+.right{ text-align: right !important; }
+.margin-center{ margin: 0 auto !important; }
+
+// Margins y Paddings
+@for $i from 0 through 10{
+	.margin-#{$i}{ margin: $i*1% !important; }
+	.margin-left-#{$i}{ margin-left: $i*1% !important; }
+	.margin-right-#{$i}{ margin-right: $i*1% !important; }
+	.margin-bottom-#{$i}{ margin-bottom: $i*1% !important; }
+	.margin-top-#{$i}{ margin-top: $i*1% !important; }
+	.padding-#{$i}{ padding: $i*1% !important; }
+	.padding-left-#{$i}{ padding-left: $i*1% !important; }
+	.padding-right-#{$i}{ padding-right: $i*1% !important; }
+	.padding-bottom-#{$i}{ padding-bottom: $i*1% !important; }
+	.padding-top-#{$i}{ padding-top: $i*1% !important; }
+	.font-weight-#{$i}{ font-weight: $i*100 !important; }
+	.container-#{100 - ($i*5)}{
+		margin: 0 auto;
+		width: 100 - ($i*5)*1%;
+	}
+}
+
+// Mdl button file
+.mdl-button--file {
+	input {
+		cursor: pointer;
+		height: 100%;
+		right: 0;
+		opacity: 0;
+		position: absolute;
+		top: 0;
+		width: 300px;
+		z-index: 4;
+	}
+}
+
+.mdl-textfield--file {
+	.mdl-textfield__input {
+		box-sizing: border-box;
+		width: calc(100% - 32px);
+  	}
+	.mdl-button--file {
+		right: 0;
+	}
+}

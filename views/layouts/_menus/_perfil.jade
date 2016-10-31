@@ -1,0 +1,23 @@
+.mdl-layout.mdl-js-layout.mdl-layout--fixed-header
+    header.mdl-layout__header
+        .mdl-layout__header-row
+            span.mdl-layout-title Bienvenido
+                small.font-weight-2 #{" "+user.name}
+            .mdl-layout-spacer
+            nav.mdl-navigation.mdl-layout--large-screen-only
+                a(href="/libros/libros").mdl-navigation__link Libros
+                a(href="/materias/materias").mdl-navigation__link Materias
+                a(href="/temas/temas").mdl-navigation__link Temas
+                a(href="/perfil").mdl-navigation__link Perfil
+                a(href="/salir").mdl-navigation__link Salir
+    .mdl-layout__drawer
+        span.mdl-layout-title Menu
+        nav.mdl-navigation
+            a(href="/temas/temas").mdl-navigation__link Temas 
+            a(href="/materias/materias").mdl-navigation__link Materia
+            a(href="/libros/libros").mdl-navigation__link Libros
+            a(href="/perfil").mdl-navigation__link Perfil
+            a(href="/salir").mdl-navigation__link Salir
+    main.mdl-layout__content
+        .page-content
+            block body

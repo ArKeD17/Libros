@@ -1,0 +1,18 @@
+extends ../layouts/_index.jade
+block header
+    include ../layouts/_menus/_perfil.jade
+        .mdl-grid.margin-top-10
+            .mdl-cell.mdl-cell--4-col.mdl-cell--12-col-tablet.mdl-cell--12-col-phone.mdl-cell--4-offset-desktop.mdl-card.mdl-shadow--2dp
+                p.mdl-typography--headline.mdl-color--grey-100.center.padding-2.margin-0 Actualizar Materia
+                form(action="/materias/edit/#{materia._id}?_method=PUT" method="POST").mdl-grid.margin-1
+                    .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.mdl-cell.mdl-cell--12-col.margin-center
+                        input(value="#{materia.name}" name="name" id="name").mdl-textfield__input
+                        label(for="name").mdl-textfield__label Nombre
+                    .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.mdl-cell.mdl-cell--12-col.margin-center
+                        select(name="tema" id="tema").mdl-textfield__select
+                            if(tema[0] != undefined)
+                                for temas in tema
+                                    option= temas.name
+                    .mdl-cell.mdl-cell--8-col.mdl-cell--middle.left #[a(href="/materas/materias") Regresa]
+                    .mdl-cell.mdl-cell--4-col.right
+                        button(type="submit").mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent.mdl-color-text--white Actualizar

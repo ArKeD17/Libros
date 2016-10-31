@@ -1,0 +1,28 @@
+extends ../layouts/_index.jade
+block header
+    include ../layouts/_menus/_perfil.jade
+        .mdl-grid.margin-top-5
+            .mdl-cell.mdl-cell--12-col.mdl-cell--12-col-talbet.mld-cell--12-col-phone.mdl-cell--12-offset-desktop.mdl-shadow--2dp
+                .mdl-cell.mdl-cell--12-col.right
+                    a(href="/libros/libro_nuevo").mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent.mdl-color-text--white Nuevo Libro
+                .mdl-grid.mdl-cell--4-col.margin-0
+                  - var i=0
+                    if(libro[0] != undefined)
+                        for libros in libro
+                            if(libros.creator._id == user._id) 
+                              - i = i+1
+                                .mdl-cell.mdl-cell--12-col.mdl-cell--12-col-tablet.mdl-cell--12-col-phone.mdl-cell--1-offset-desktop.mdl-card.mdl-shadow--2dp
+                                    p.mdl-typography--display-1.mdl-color--grey-100.center.padding-2.margin-0= libros.name
+                                    h1.mdl-typography--title.left.padding-2.margin-0.font-weight-2 Autor: #{libros.autor}
+                                    h1.mdl-typography--title.left.padding-2.margin-0.font-weight-2 Tema: #{libros.tema}
+                                    h1.mdl-typography--title.left.padding-2.margin-0.font-weight-2 Materia: #{libros.materia}
+                                    h1.mdl-typography--title.left.padding-2.margin-0.font-weight-2 Costo: $#{libros.costo}
+                                    h1.mdl-typography--title.left.padding-2.margin-o.font.weight-2 Creador: #{libros.creator.username}
+                                    .mdl-cell.mdl-cell--6-col
+                                        a(href="/libros/edit/#{libros._id}").mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent.mdl-color-text--white Editar
+                                    form(action="/libros/libros/#{libros._id}?_method=DELETE" method="POST")
+                                        .mdl-cell.mdl-cell--6-col
+                                            button(type="submit").mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent.mdl-color-text--white Eliminar
+                    else
+                        p.mdl-typography--headline.center.padding-2.margin-0 No hay libros
+

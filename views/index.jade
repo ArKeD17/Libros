@@ -1,0 +1,15 @@
+extends ./layouts/_index.jade
+block body
+    .mdl-grid.margin-top-10
+        .mdl-cell.mdl-cell--4-col.mdl-cell--12-col-tablet.mdl-cell--12-col-phone.mdl-cell--4-offset-desktop.mdl-card.mdl-shadow--2pd
+            p.mdl-typography--headline.mdl-color--grey-100.center.padding-2.margin-0 Iniciar Sesión
+            form(action="/" method="POST").mdl-grid.margin-1
+                .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.mdl-cell-mdl-cell--12-col.margin-center
+                    input(name="email" type="email" id="email").mdl-textfield__input
+                    label(for="email").mdl-textfield__label Correo Electronico
+                .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.mdl-cell-mdl-cell--12-col.margin-center
+                    input(name="password" type="password" id="password").mdl-textfield__input
+                    label(for="password").mdl-textfield__label Contraseña
+                .mdl-cell.mdl-cell--8-col.mdl-cell--middle.center Soy nuevo #[a(href="/registro") Crear cuenta.]
+                .mdl-cell.mdl-cell--4-col.right
+                    button(type="submit").mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent.mdl-color-text--white Entrar

@@ -1,0 +1,26 @@
+doctype html
+html
+    head
+        title Libros
+        meta(charset="UTF-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        link(rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css")
+        link(rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons")
+        link(rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.blue-light_blue.min.css")
+        link(rel="stylesheet" href="/css/main.min.css")
+        link(rel="stylesshet" href="./node_modules/mdl-selectfield/dist/mdl-selectfield.min.css") 
+    body
+        block header
+            include ./_menus/_home.jade
+        block footer
+            #notification.mdl-js-snackbar.mdl-snackbar
+                .mdl-snackbar__text
+                button.mdl-snackbar__action
+            script(defer src="https://code.getmdl.io/1.2.1/material.min.js")
+            script(src="./node_modules/mdl-selectfield/dist/mdl-selectfield.min.js")
+            // Registrar variables de error
+            script.
+               var error = "#{error}";
+               console.log(error);
+               var msg = "#{msg}";
+            script(src="/js/main.min.js")

@@ -1,0 +1,31 @@
+extends ../layouts/_index.jade
+block header
+    include ../layouts/_menus/_perfil.jade
+        .mdl-grid.margin-top-10
+            .mdl-cell.mdl-cell--4-col.mdl-cell--12-col-tablet.mdl-cell--12-col-phone.mdl-cell--4-offset-desktop.mdl-card.mdl-shadow--2dp
+                p.mdl-typography--headline.mdl-color--grey-100.center.padding-2.margin-0 Nuevo Libro
+                form(action="/libros/libro_nuevo" method="POST").mdl-grid.margin-1
+                    .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.mdl-cell.mdl-cell--12-col.margin-center
+                        input(name="name" type="texto" id="name").mdl-textfield__input
+                        label(for="name").mdl-textfield__label Nombre
+                    .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.mdl-cell.mdl-cell--12-col.margin-center
+                        input(name="autor" type="text" id="autor").mdl-textfield__input
+                        label(for="autor").mdl-textfield__label Autor
+                    .mdl-textfield.mdl.js-textfield.mdl-textfield--floating-label.mdl-cell.mdl-cell--12-col.margin-center
+                        select(name="tema" id="tema" type="text").mdl-textfield__select
+                            if(tema[0] != undefined)
+                                for temas in tema
+                                    option= temas.name
+                    .mdl-textfield.mdl.js-textfield.mdl-textfield--floating-label.mdl-cell.mdl-cell--12-col.margin-center
+                        select(name="materia" id="materia" type="text").mdl-textfield__select
+                            if(materia[0] != undefined)
+                                for materias in materia
+                                    if(materias.tema == materias.tema._id)
+                                        option= materias.name
+                    .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.mdl-cell.mdl-cell--12-col.margin-center
+                        input(name="costo" type="number" id="costo").mdl-textfield__input
+                        label(for="costo").mdl-textfield__label Costo
+                    .mdl-cell.mdl-cell--8-col.mdl-cell--middle.left #[a(href="/libros/libros") Regresa]
+                    .mdl-cell.mdl-cell--4-col.right
+                        button(type="submit").mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent.mdl-color-text--white Crear
+
