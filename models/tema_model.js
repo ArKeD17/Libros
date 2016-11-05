@@ -4,7 +4,7 @@
 const conn = require('./connection');
 const Schema = conn.Schema;
 const formidable = require('express-formidable');
-
+const User = require('./user_model');
 /*Creamos la "TABLA"*/
 const tema_schema = new Schema({
     name: {
@@ -17,6 +17,10 @@ const tema_schema = new Schema({
     },
     date_modified: {
         type: Date
+    },
+    creator: {
+        type: Schema.ObjectId,
+        ref: 'User'
     }
 });
 
@@ -31,7 +35,8 @@ module.exports.create = (req, res) => {
     let error= ""; 
     //creamos el objeto
     let tema = new Tema({
-        name: req.fields.name
+        name: req.fields.name,
+        creator: req.session.user._id
     });    
 
     tema.save().then((data) => {
@@ -87,7 +92,7 @@ module.exports.mostrar = (req,res) => {
 module.exports.index = (req,res) => {
     console.log(`GET ${req.route.path}`);
         if(req.session.user != undefined){
-            Tema.find((err, tema) => {
+            Tema.find({creator: req.session.user}).populate("creator").exec((err, tema) => {
                 if(err) console.log(`Error en la peticion index: ${err}`);
                     res.render('temas/temas',{"tema": tema, "user": req.session.user});
             });

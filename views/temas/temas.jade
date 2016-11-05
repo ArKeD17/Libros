@@ -5,16 +5,17 @@ block header
             .mdl-cell.mdl-cell--12-col.mdl-cell--12-col-tablet.mdl-cell--12-col-phone.mdl-cell--12-offset-desktop.mdl-shadow--2dp
                 .mdl-cell.mdl-cell--12-col.right
                     a(href="/temas/tema_nuevo").mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent.mdl-color-text--white Nuevo tema
-                .mdl-grid.mdl-cell.mdl-cell--4-col.margin-0
+                .mdl-grid.mdl-cell.mdl-cell--12-col.margin-0
                     if(tema[0] != undefined)
                         for temas in tema
-                            .mdl-cell.mdl-cell--12-col.mdl-cell--12-col-tablet.mdl-cell--12-col-phone.mdl-cell--1-offset-desktop.mdl-card.mdl-shadow--2dp
+                            .mdl-cell.mdl-cell--4-col.mdl-cell--4-col-tablet.mdl-cell--4-col-phone.mdl-cell--0-offset-desktop.mdl-card.mdl-shadow--2dp
                                 p.mdl-typography--display-1.mdl-color--grey-100.center.padding-2.margin-0= temas.name
                                 h1.mdl-typography--title.left.padding-2.margin-0.font-weight-2 Fecha de creacion: #{temas.date_create.getDate()}/#{temas.date_create.getMonth()}/#{temas.date_create.getFullYear()} 
-                                .mdl-cell.mdl-cell--6-col
-                                    a(href="/temas/edit/#{temas._id}").mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent.mdl-color-text--white Editar
-                                form(action="/temas/temas/#{temas._id}?_method=DELETE" method="POST")
+                                .mdl-grid.mdl-cell.mdl-cell--12-col.margin-0
                                     .mdl-cell.mdl-cell--6-col
-                                        button(type="submit").mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent.mdl-color-text--white Eliminar                   
+                                        a(href="/temas/edit/#{temas._id}").mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent.mdl-color-text--white Editar
+                                    .mdl-cell.mdl-cell--6-col.right
+                                        form(action="/temas/temas/#{temas._id}?_method=DELETE" method="POST")
+                                            button(type="submit").mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent.mdl-color-text--white Eliminar                   
                     else 
                         p.mdl-typography--headline.center.padding-2.margin-0 No hay temas

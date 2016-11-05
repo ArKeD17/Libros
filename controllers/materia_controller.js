@@ -12,7 +12,7 @@ router.route('/materias/materias')
 
 router.route('/materias/materia_nueva')
     .get((req, res) => {
-        Tema.Tema.find((err, tema) => {
+        Tema.Tema.find({creator: req.session.user},(err, tema) => {
             if(err) console.log(`Error en la peticion de tema: ${err}`);
             res.render('materias/materia_nueva',{"user": req.session.user, "tema": tema});    
         });

@@ -11,6 +11,7 @@ block header
                     .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.mdl-cell.mdl-cell--12-col.margin-center
                         select(name="tema" id="tema").mdl-textfield__select
                             if(tema[0] != undefined)
+                                option(disabled selected) Selecciona Tema
                                 for temas in tema
                                     option(value="#{temas._id}")= temas.name
                     .mdl-cell.mdl-cell--8-col.mdl-cell--middle.left #[a(href="/materias/materias") Regresar]

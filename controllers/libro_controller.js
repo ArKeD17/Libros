@@ -17,13 +17,14 @@ router.route('/libros/libros/:id')
 
 router.route('/libros/libro_nuevo')
     .get((req, res) => {
-        Tema.Tema.find((err, tema) => { 
+        Tema.Tema.find({creator: req.session.user},(err, tema) => { 
             if(err) return console.log(`Error en la peticion de tema: ${err}`);
             if(tema == null) return res.redirect(301, '/libros/libros');
             Materia.Materia.find({}).populate("tema").exec((err, materia) => {
                 if(err) return console.log(`Error en la peticion de materia: ${err}`);
                 if(materia == null) return res.redirect(301, '/libros/libros');
-                res.render('libros/libro_nuevo', {"user": req.session.user, "tema": tema, "materia": materia});
+                //console.log(materia)name;
+                res.render('libros/libro_nuevo', {"user": req.session.user,"tema": tema,"materia": materia});
             });  
         });
     })
@@ -32,6 +33,7 @@ router.route('/libros/libro_nuevo')
 router.route('/libros/edit/:id')
         .put(Libro.editar)
         .get(Libro.mostrar);
+
 
 /*exportamos el router*/
 module.exports = router;

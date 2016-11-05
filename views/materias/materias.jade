@@ -5,16 +5,18 @@ block header
            .mdl-cell.mdl-cell--12-col.mdl-cell--12-col-tablet.mdl-cell--12-col-phone.mdl-cell--12-offset-desktop.mdl-shadow--2dp
                 .mdl-cell.mdl-cell--12-col.right
                     a(href="/materias/materia_nueva").mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent.mdl-color-text--white Nueva materia
-                .mdl-grid.mdl-cell.mdl-cell--4-col.margin-0
+                .mdl-grid.mdl-cell.mdl-cell--12-col.margin-0
                     if(materia[0] != undefined)
                         for materias in materia
-                            .mdl-cell.mdl-cell--12-col.mdl-cell--12-col-tablet.mdl-cell--12-col-phone.mdl-cell--1-offset-desktop.mdl-card.mdl-shadow--2dp
+                            .mdl-cell.mdl-cell--4-col.mdl-cell--4-col-tablet.mdl-cell--4-col-phone.mdl-cell--0-offset-desktop.mdl-card.mdl-shadow--2dp
                                 p.mdl-typography--display-1.mdl-color--grey-100.center.padding-2.margin-0= materias.name
-                                h1.mdl-typography--title.left.padding-2.margin-0.font-weight-2 Pertence al tema: #{materias.tema.name}
-                                .mdl-cell.mdl-cell--6-col
-                                    a(href="/materias/edit/#{materias._id}").mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent.mdl-color-text--white Editar
-                                 form(action="/materias/materias/#{materias._id}?_method=DELETE" method="POST")
+                                if(materias.tema != undefined)
+                                    h1.mdl-typography--title.left.padding-2.margin-0.font-weight-2 Pertence al tema: #{materias.tema.name}
+                                .mdl-grid.mdl-cell.mdl-cell--12-col.margin-0
                                     .mdl-cell.mdl-cell--6-col
-                                        button(type="submit").mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent.mdl-color-text--white Eliminar
+                                        a(href="/materias/edit/#{materias._id}").mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent.mdl-color-text--white Editar
+                                    .mdl-cell.mdl-cell--6-col.right
+                                        form(action="/materias/materias/#{materias._id}?_method=DELETE" method="POST")
+                                            button(type="submit").mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent.mdl-color-text--white Eliminar
                     else
                         p.mdl-typography--headline.center.padding-2.margin-0 No hay materias

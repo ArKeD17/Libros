@@ -12,18 +12,33 @@ block header
                         input(name="autor" value="#{libro.autor}" type="text" id="autor").mdl-textfield__input
                         label(for="autor").mdl-textfield__label Autor
                     .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.mdl-cell.mdl-cell--12-col.margin-center
-                        select(name="tema" id="tema" type="text").mdl-texfield__select
+                        select(name="tema" id="temas_selc" type="text" onchange="si()").mdl-texfield__select
                             if(tema[0] != undefined)
+                                option(disabled selected) Selecciona Tema
                                 for temas in tema
-                                    option= temas.name
+                                    option(value="#{temas.name}")= temas.name
                     .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.mdl-cell.mdl-cell--12-col.margin-center
-                        select(name="materia" id="materia" type="text").mdl-textfield__select
-                            if(materia[0] != undefined)
-                                for materias in materia
-                                    option= materias.name
+                        select(name="materia" id="materias_selc" type="text").mdl-textfield__select
                     .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.mdl-cell.mdl-cell--12-col.margin.center
                         input(name="costo" value="#{libro.costo}" type="number" id="costo").mdl-textfield__input
                         label(for="costo").mdl-textfield__label Costo
                     .mdl-cell.mdl-cell--8-col.mdl-cell--middle.left #[a(href="/libros/libros") Regresar]
                     .mdl-cell.mdl-cell--4-col.right
                         button(type="submit").mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent.mdl-color-text--white Actualizar
+                script.
+                    function si(){
+                        var materias_arr = !{JSON.stringify(materia).replace(/<\//g, "<\\/")}
+                        console.log(materias_arr)
+                        var temas_selec = document.getElementById("temas_selc");
+                        var indextemas = temas_selec.selectedIndex;
+                        var temasValue = temas_selec[indextemas].value;
+                        var materias_selc = document.getElementById("materias_selc");
+                        materias_selc.innerHTML = "<option disabled selected>Selecciona Materia</option>";
+                        for (var i = materias_arr.length-1;i>=0;i--){
+                            console.log(materias_arr[i]["tema"]["name"])
+                            if(temasValue == materias_arr[i]["tema"]["name"]){
+                                console.log(temasValue == materias_arr[i]["tema"]["name"])
+                                materias_selc.innerHTML += "<option>"+materias_arr[i]["name"]+"</option>";
+                            }
+                        }
+                    }

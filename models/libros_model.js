@@ -29,10 +29,6 @@ const libro_schema = new Schema({
     costo: {
         type: Number
     },
-    image: {
-        type: String,
-        default: 'no-img.png'
-    },
     creator: {
         type: Schema.ObjectId,
         ref: 'User'
@@ -41,7 +37,6 @@ const libro_schema = new Schema({
 
 /*Creamos el modelo*/
 const Libro = conn.model("Libro", libro_schema);
-const path_image = './public/imgs/libros/';
 
 module.exports.Libro = Libro;
 
@@ -56,17 +51,21 @@ module.exports.create = (req, res) => {
         materia: req.fields.materia,
         autor: req.fields.autor,
         costo: req.fields.costo,
-        creator: req.session.user._id,
-        image: conn.subir_imagen(path_image)
+        creator: req.session.user._id
     });    
 
     libro.save().then((data) => {
-        if(data.image != 'no-img.png')
-            conn.subir_imagen(path_image, req.files.image, data.image);
-        
         res.redirect('/libros/libro_nuevo');
     }, (err) => {
-            res.render('/libros/libro_nuevo',{"error": conn.error(err)});
+            Tema.Tema.find({creator: req.session.user},(erro, tema) => {
+                if(erro) return console.log(`Error en la peticion de tema: ${erro}`);
+                if(tema == null) return res.redirect(301, 'libros');
+                Materia.Materia.find({}).populate("tema").exec((erro, materia) => {
+                    if(erro) return conole.log(`Error en la peticion de materia: ${err}`);
+                    if(materia == null) return res.redirect(301,'libros');
+                    res.render('libros/libro_nuevo',{"error": conn.error(err), "user": req.session.user, "tema": tema, "materia": materia});    
+                });
+            });
         });
 }
 
@@ -87,7 +86,7 @@ module.exports.index = (req, res) => {
     console.log(`GET ${req.route.path}`);
 
     if(req.session.user != undefined){
-        Libro.find({}).populate("creator").exec((err, libro) =>{
+        Libro.find({creator: req.session.user}).populate("creator").exec((err, libro) =>{
             //console.log(libro);
             if(err) console.log(`Error en la peticion index de libros: ${err}`);
             res.render('libros/libros', {"libro": libro, "user": req.session.user});
@@ -106,7 +105,7 @@ module.exports.editar = (req, res) => {
             Tema.Tema.find((err, tema) => {
                 if(err) return console.log(`Error en la peticion de tema: ${err}`);
                 if(tema == null) return res.redirect(301, '/libros/libros');
-                Materia.Materia.find((err, materia) => {
+                Materia.Materia.find({}).populate("tema").exec((err, materia) => {
                     if(err) return console.log(`Error en la peticion de materia: ${err}`) ;
                     if(materia == null) return res.redirect(301, '/libros/libros');
                     libro.name = req.fields.name
@@ -118,7 +117,19 @@ module.exports.editar = (req, res) => {
                     libro.save().then((data) => {
                         res.render('libros/edit', {"libro": libro, "user": req.session.user,"msg": "Se actualizo correctamente" ,"tema": tema, "materia": materia,"error": error});   
                     }, (err) => {
-                            res.render('/libros/edit', {"error": conn.error(err)});
+                            Libro.findById(req.params.id, (erro, libro) => {
+                                if(erro) return console.log(`Error en findById de libro: ${erro}`);
+                                if(libro == null) return res.redirect(301,'libros');
+                                Tema.Tema.find({creator: req.session.user},(erro, tema) => {
+                                    if(erro) return console.log(`Error en la peticion de tema: ${erro}`);
+                                    if(tema == null) return res.redirect(301,'libros');
+                                    Materia.Materia.find((erro, materia) => {
+                                        if(erro) return console.log(`Error en la peticion de materia: ${erro}`);
+                                        if(materia == null) return res.redirec(301,'libros');
+                                        res.render('libros/edit',{"error": conn.error(err), "tema": tema, "materia": materia, "libro": libro, "user": req.session.user});
+                                    });
+                                });
+                            });
                         });
                 });
             });
@@ -135,10 +146,10 @@ module.exports.mostrar = (req, res) => {
         Libro.findById(req.params.id, (err, libro) => {
             if(err) return console.log(`Error en findById de libro: ${err}`);
             if(libro == null) return res.redirect(301,'/libros/libros');
-            Tema.Tema.find((err, tema) => {
+            Tema.Tema.find({creator: req.session.user},(err, tema) => {
                 if(err) return console.log(`Error en la peticion de tema: ${err}`);
                 if(tema == null) return res.redirect(301, '/libros/libros');
-                Materia.Materia.find((err, materia) => {
+                Materia.Materia.find({}).populate("tema").exec((err, materia) => {
                     if(err) return console.log(`Error en la peticion de materia: ${err}`);
                     if(materia == null) return res.redirect(301, '/libros/libros');
                     res.render('libros/edit', {"user": req.session.user, "tema": tema, "libro": libro,"materia": materia});

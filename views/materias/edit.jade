@@ -12,7 +12,7 @@ block header
                         select(name="tema" id="tema").mdl-textfield__select
                             if(tema[0] != undefined)
                                 for temas in tema
-                                    option= temas.name
+                                    option(value="#{temas._id}")= temas.name
                     .mdl-cell.mdl-cell--8-col.mdl-cell--middle.left #[a(href="/materas/materias") Regresa]
                     .mdl-cell.mdl-cell--4-col.right
                         button(type="submit").mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent.mdl-color-text--white Actualizar
